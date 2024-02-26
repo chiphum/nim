@@ -158,10 +158,13 @@ class NimAI():
         else:
             pass
 
-        # Test
-        self.q[(0, 0, 0, 2), (3, 2)] = -1
-        print('ere')
+        # # Test
+        # self.q[(0, 0, 0, 2), (3, 2)] = -1
+        # print('ere')
 
+        # z = self.get_q_value((0, 0, 0, 2), (3, 2))
+        # z = self.get_q_value((0, 0, 0, 0), (3, 2))
+        # print(z)
         raise NotImplementedError
 
 
