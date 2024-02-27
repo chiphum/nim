@@ -139,8 +139,14 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-
+        # test
+        self.q[(0, 0, 0, 2), (3, 2)] = -1
+        self.q[(0, 0, 0, 1), (3, 2)] = 1
         # loop over and find best one.
+
+        p = Nim.available_actions(tuple([1, 1, 3, 5]))
+        for x in self.q:
+            print(x)
         
 
         raise NotImplementedError
@@ -161,10 +167,32 @@ class NimAI():
         options is an acceptable return value.
         """
 
+        x = type(state)
+        print(x)
+
         if epsilon:
-            pass
+            return 0
         else:
-            pass
+            return 0
+            # best = -999999999
+            # nq = False
+            # for x in self.q:
+            #     s = self.q[x][0]
+            #     a = self.q[x][1]
+            #     if s == tuple(state):
+            #         if nq == False:
+            #             best = a
+            #         else:
+            #             if a > best:
+            #                 best = a
+            
+
+
+
+            #         pass
+
+
+
 
         # # Test
         # self.q[(0, 0, 0, 2), (3, 2)] = -1
