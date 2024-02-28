@@ -101,8 +101,10 @@ class NimAI():
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
-        if (state,action) in self.q:
-            return (self.q[state,action])
+        state_tuple = tuple(state)
+
+        if (state_tuple,action) in self.q:
+            return (self.q[state_tuple,action])
         else:
             return 0
 
@@ -125,8 +127,9 @@ class NimAI():
         """
         uq = old_q + self.alpha * (reward + future_rewards - old_q)
 
-        self.q[state,action] = uq
+        self.q[tuple(state),action] = uq
 
+        return
         raise NotImplementedError
 
     def best_future_reward(self, state):
@@ -139,14 +142,25 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        # test
-        self.q[(0, 0, 0, 2), (3, 2)] = -1
-        self.q[(0, 0, 0, 1), (3, 2)] = 1
-        # loop over and find best one.
+        # Get Available Actions Given State
+        available_actions = Nim.available_actions(state)   
+        
+        # Loop over Available Actions add if needed
+        for action in available_actions:
+            pair = (tuple(state),action)
+            if pair not in self.q:
+                self.q[pair] = 0
 
-        p = Nim.available_actions(tuple([1, 1, 3, 5]))
-        for x in self.q:
-            print(x)
+        # Loop over self.q and find best action
+        best_result = -9999999999999999999999999
+        best_action = None
+        for action in available_actions:
+            pair = (tuple(state),action)
+            if self.q[pair] > best_result:
+                best_result = self.q[pair]
+                best_action = pair[1]
+
+        return best_result
         
 
         raise NotImplementedError
@@ -182,11 +196,11 @@ class NimAI():
             rand = random.uniform(0,1)
             # Only return based upon probablity
             if self.epsilon > rand:
-                action = random.choice(available_actions)
+                action = random.choice(list(available_actions))
                 return action
 
         # Loop over self.q and find best action
-        best_result = -2
+        best_result = -9999999999999999999999999
         best_action = None
         for action in available_actions:
             pair = (tuple(state),action)
