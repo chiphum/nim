@@ -167,41 +167,35 @@ class NimAI():
         options is an acceptable return value.
         """
 
-        x = type(state)
-        print(x)
-
+        # Get Available Actions Given State
+        available_actions = Nim.available_actions(state)   
+        
+        # Loop over Available Actions add if needed
+        for action in available_actions:
+            pair = (tuple(state),action)
+            if pair not in self.q:
+                self.q[pair] = 0
+        
+        # Select a random action with probability epsilon
         if epsilon:
-            return 0
-        else:
-            return 0
-            # best = -999999999
-            # nq = False
-            # for x in self.q:
-            #     s = self.q[x][0]
-            #     a = self.q[x][1]
-            #     if s == tuple(state):
-            #         if nq == False:
-            #             best = a
-            #         else:
-            #             if a > best:
-            #                 best = a
-            
+            # Select a random action with probability epsilon
+            rand = random.uniform(0,1)
+            # Only return based upon probablity
+            if self.epsilon > rand:
+                action = random.choice(available_actions)
+                return action
 
+        # Loop over self.q and find best action
+        best_result = -2
+        best_action = None
+        for action in available_actions:
+            pair = (tuple(state),action)
+            if self.q[pair] > best_result:
+                best_result = self.q[pair]
+                best_action = pair[1]
+        
+        return best_action
 
-
-            #         pass
-
-
-
-
-        # # Test
-        # self.q[(0, 0, 0, 2), (3, 2)] = -1
-        # print('ere')
-
-        # z = self.get_q_value((0, 0, 0, 2), (3, 2))
-        # z = self.get_q_value((0, 0, 0, 0), (3, 2))
-        # print(z)
-        raise NotImplementedError
 
 
 def train(n):
