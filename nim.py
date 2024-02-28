@@ -265,6 +265,10 @@ def train(n):
                     0
                 )
 
+        if i == 777:
+            pass
+            
+
     print("Done training")
 
     # Return the trained AI
