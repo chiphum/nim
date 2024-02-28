@@ -1,7 +1,7 @@
 from nim import train, play, NimAI
 from nim import NimAI
 
-x = NimAI()
+#x = NimAI()
 
 #x.best_future_reward((0, 0, 0, 2))
 
